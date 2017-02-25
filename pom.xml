@@ -28,7 +28,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>org.callahan.necknotes.Main</mainClass>
+              <mainClass>org.callahan.necknotes.NeckNotesMain</mainClass>
               <addClasspath>true</addClasspath>
             </manifest>
           </archive>
@@ -45,7 +45,7 @@
           </descriptorRefs>
           <archive>
             <manifest>
-              <mainClass>org.callahan.necknotes.Main</mainClass>
+              <mainClass>org.callahan.necknotes.NeckNotesMain</mainClass>
             </manifest>
           </archive>
         </configuration>

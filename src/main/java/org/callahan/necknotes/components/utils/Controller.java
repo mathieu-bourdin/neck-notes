@@ -1,21 +1,22 @@
 package org.callahan.necknotes.components.utils;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public abstract class Controller {
 
-  private PropertyChangeSupport propSupport = new PropertyChangeSupport(this);
+  private Set<EventHandler> listeners = new HashSet<>();
 
-  public final void notifyListeners() {
-    propSupport.firePropertyChange(
-      new PropertyChangeEvent(this, null, null, null)
-    );
+  public final void notifyListeners(Event e) {
+    listeners.forEach(h -> h.handle(e));
   }
 
-  public final void addListener(PropertyChangeListener l) {
-    propSupport.addPropertyChangeListener(l);
+  public final <T extends Event> void addListener(EventHandler<T> h) {
+    listeners.add(h);
   }
 
 }

@@ -1,40 +1,48 @@
 package org.callahan.necknotes.components.neck;
 
-import org.callahan.necknotes.Main;
-import org.callahan.necknotes.components.tuning.TuningButtons;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.stage.Screen;
 
-import java.awt.*;
 
-public class Neck extends NeckPartContainer {
+public class Neck extends GridPane {
 
   public Neck() {
-    super(new GridBagLayout());
 
-    GridBagConstraints c = new GridBagConstraints();
+    Node fretsNumber = createFretsNumbers();
+    add(fretsNumber, 1, 0);
+    setHgrow(fretsNumber, Priority.ALWAYS);
+    setFillWidth(fretsNumber, true);
 
-    c.gridx = 1;
-    c.gridy = 0;
-    c.fill = GridBagConstraints.BOTH;
-    c.weightx = 1.0;
-    c.weighty = 0.0001;
-    add(new FretsNumbering(), c);
+    Button tuning = createTuningButtons();
+    add(tuning, 0, 1);
+    setVgrow(tuning, Priority.ALWAYS);
+    setFillHeight(tuning, true);
 
-    c.gridx = 0;
-    c.gridy = 1;
-    c.fill = GridBagConstraints.BOTH;
-    c.weightx = 0.0;
-    c.weighty = 0.0;
-    add(new TuningButtons(), c);
+    Node fretBoard = createFretBoard();
+    add(fretBoard, 1, 1);
 
-    c.gridx = 1;
-    c.gridy = 1;
-    c.fill = GridBagConstraints.BOTH;
-    c.weightx = 1.0;
-    c.weighty = 1.0;
-    add(new FretBoard(), c);
+  }
 
-    neckPropertiesChanged(new FretBoardContext(Main.FACADE.getNeckSpecifications()));
+  private Button createTuningButtons() {
+    Button r = new Button("I");
+    r.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+    return r;
+  }
 
+  private Node createFretsNumbers() {
+    Button r = new Button("1 2 3 4 5 6 7 8 9 10 11 12");
+    r.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+    return r;
+  }
+
+  private Node createFretBoard() {
+    Button r = new Button("FRETBOARD");
+    r.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+    return r;
   }
 
 }

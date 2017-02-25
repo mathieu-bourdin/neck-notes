@@ -11,35 +11,30 @@ import java.util.Set;
 
 public class NeckNotesFacade {
 
-  private TonesSelection selection;
-  private NeckSpecifications currentLayout;
+  private static TonesSelection selection = new TonesSelection();
+  private static NeckSpecifications currentLayout = new GuitarStandard();
 
-  public NeckNotesFacade(NeckSpecifications layout) {
-    currentLayout = layout;
-    selection = new TonesSelection();
-  }
-
-  public void selectTone(Tone t) {
+  public static void selectTone(Tone t) {
     selection.selectTone(t);
   }
 
-  public void deselectTone(Tone t) {
+  public static void deselectTone(Tone t) {
     selection.deselectTone(t);
   }
 
-  public List<Tone> getTonesOrder() {
+  public static List<Tone> getTonesOrder() {
     return Arrays.asList(Tone.CHROMATIC);
   }
 
-  public boolean isSelected(Tone t) {
+  public static boolean isSelected(Tone t) {
     return selection.isSelected(t);
   }
 
-  public NeckSpecifications getNeckSpecifications() {
+  public static NeckSpecifications getNeckSpecifications() {
     return currentLayout;
   }
 
-  public Set<Tone> getSelectedTones() {
+  public static Set<Tone> getSelectedTones() {
     return selection.getSelectedTones();
   }
 }

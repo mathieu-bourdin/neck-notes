@@ -1,7 +1,8 @@
 package org.callahan.necknotes.components.neck;
 
-import org.callahan.necknotes.Main;
+import org.callahan.necknotes.NeckNotesMain;
 import org.callahan.necknotes.core.InstrumentString;
+import org.callahan.necknotes.core.NeckNotesFacade;
 import org.callahan.necknotes.core.Note;
 import org.callahan.necknotes.core.Tone;
 
@@ -13,7 +14,7 @@ public class NotesDrawer extends NeckPartDrawer {
 
   public NotesDrawer(NeckPartDrawer np) {
     super(np);
-    selectedTones = Main.FACADE.getSelectedTones();
+    selectedTones = NeckNotesFacade.getSelectedTones();
   }
 
   @Override
