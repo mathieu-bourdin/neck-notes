@@ -1,6 +1,7 @@
 package org.callahan.necknotes.core;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 public class TonesSelection {
 

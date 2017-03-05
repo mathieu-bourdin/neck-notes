@@ -4,7 +4,7 @@ import org.callahan.necknotes.core.EvenNeck;
 import org.callahan.necknotes.core.Note;
 import org.callahan.necknotes.core.Tone;
 
-public class FiveStringsBass extends EvenNeck {
+public class BassFiveStrings extends EvenNeck {
 
   private static final Note[] ZERO_FRET_NOTES = {
     new Note(Tone.G, 2),
@@ -14,7 +14,7 @@ public class FiveStringsBass extends EvenNeck {
     new Note(Tone.B, 0),
   };
 
-  public FiveStringsBass() {
+  public BassFiveStrings() {
     super(ZERO_FRET_NOTES);
     getStrings().get(0).setGauge(40);
     getStrings().get(1).setGauge(60);

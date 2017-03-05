@@ -87,7 +87,7 @@ public class InstrumentString {
   }
 
   public Note[] listNotes() {
-    return streamNotes().toArray(s -> new Note[s]);
+    return streamNotes().toArray(Note[]::new);
   }
 
   private static class NotesSupplier implements Supplier<Note> {

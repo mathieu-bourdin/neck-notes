@@ -1,13 +1,11 @@
 package org.callahan.necknotes.components.neck;
 
+import org.callahan.necknotes.components.utils.Doubles;
 import org.callahan.necknotes.core.InstrumentString;
 import org.callahan.necknotes.core.NeckSpecifications;
 import org.callahan.necknotes.core.Note;
 
-import java.awt.*;
-import java.awt.geom.Point2D;
 import java.util.*;
-import java.util.List;
 import java.util.stream.Stream;
 
 import static java.lang.Math.min;
@@ -25,7 +23,6 @@ public class FretBoardContext {
   final int columns;
   final int rows;
   private final FretCell[] cells;
-  private Dimension currentSize;
   private double gaugeRatio;
 
   FretBoardContext(NeckSpecifications layout) {
@@ -33,7 +30,6 @@ public class FretBoardContext {
     columns = lastFret();
     rows = neckSpec.getStrings().size();
     cells = initCells();
-    currentSize = new Dimension(0, 0);
     gaugeRatio = calcGaugeRatio();
   }
 
@@ -61,22 +57,23 @@ public class FretBoardContext {
     return Optional.ofNullable(cells[string * columns + fret]);
   }
 
-  void updateSize(Dimension d) {
-    if (sizeChanged(d)) {
-      width = d.getWidth();
-      height = d.getHeight();
+  void updateSize(double w, double h) {
+//    if (sizeChanged(w, h)) {
+      width = w;
+      height = h;
       cellW = width / ((double) columns);
       cellH = height / ((double) rows);
       cellMinEdge = min(cellH, cellW);
-    }
+//    }
   }
 
-  private boolean sizeChanged(Dimension d) {
-    if (d.equals(currentSize)) {
-      return false;
-    } else {
-      currentSize = d;
+  private boolean sizeChanged(double w, double h) {
+    if (Doubles.equal(w, width) && Doubles.equal(h, height)) {
       return true;
+    } else {
+      width = w;
+      height = h;
+      return false;
     }
   }
 
@@ -94,7 +91,7 @@ public class FretBoardContext {
     int idx = 0;
     for (InstrumentString string : neckSpec.getStrings()) {
       idx += string.getFirstFret() - 1;
-      for (Note n : string.streamNotes().skip(1).toArray(s -> new Note[s])) {
+      for (Note n : string.streamNotes().skip(1).toArray(Note[]::new)) {
         res[idx] = new FretCell(n, idx / columns, idx % columns);
         ++idx;
       }
@@ -103,6 +100,6 @@ public class FretBoardContext {
   }
 
   public Stream<FretCell> streamCells() {
-    return Arrays.stream(cells).filter(c -> c != null);
+    return Arrays.stream(cells).filter(Objects::nonNull);
   }
 }

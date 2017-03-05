@@ -1,83 +1,95 @@
 package org.callahan.necknotes.components.utils;
 
-import java.awt.*;
-import java.awt.geom.Rectangle2D;
+import javafx.geometry.Bounds;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
-import static java.awt.RenderingHints.KEY_ANTIALIASING;
-import static java.awt.RenderingHints.VALUE_ANTIALIAS_OFF;
-import static java.awt.RenderingHints.VALUE_ANTIALIAS_ON;
 
 public abstract class GfxDrawer {
 
-  protected final Graphics gfx;
+  protected final GraphicsContext gc;
 
-  public GfxDrawer(Graphics g) {
-    gfx = g;
-    setAntialias();
-  }
-
-  private void setAntialias() {
-    if (gfx instanceof Graphics2D) {
-      ((Graphics2D) gfx)
-        .setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON);
-    }
+  public GfxDrawer(GraphicsContext g) {
+    gc = g;
   }
 
   public abstract void draw();
 
   public void drawLine(double x, double y, double xx, double yy) {
-    gfx.drawLine(asInt(x), asInt(y), asInt(xx), asInt(yy));
+    gc.strokeLine(x + 0.5, y + 0.5, xx + 0.5, yy + 0.5);
   }
 
   public void fillOval(double x, double y, double w, double h) {
-    gfx.fillOval(asInt(x), asInt(y), asInt(w) - 1, asInt(h) - 1);
+    gc.fillOval(x, y, w, h);
   }
 
   public void drawOval(double x, double y, double w, double h) {
-    gfx.drawOval(asInt(x), asInt(y), asInt(w) - 1, asInt(h) - 1);
+    gc.strokeOval(x + 0.5, y + 0.5, w - 1.0, h - 1.0);
   }
 
   public void fillCircle(double x, double y, double radius) {
-    fillOval(x - radius + 1, y - radius, radius * 2.0, radius * 2.0);
+    gc.fillOval(x - radius + 1, y - radius + 1, radius * 2.0 - 1, radius * 2.0 - 1);
   }
 
   public void drawCircle(double x, double y, double radius) {
-    drawOval(x - radius + 1, y - radius, radius * 2.0, radius * 2.0);
+    gc.strokeOval(x - radius + 1, y - radius + 1, 2.0 * radius - 1, 2 * radius - 1);
   }
 
   public void drawString(String str, double x, double y) {
-    gfx.drawString(str, asInt(x), asInt(y));
+    gc.fillText(str, x + 0.5, y + 0.5);
   }
 
   public void drawStringCentered(String str, double x, double y) {
-    Rectangle2D bounds = gfx.getFontMetrics().getStringBounds(str, gfx);
-    int strW = gfx.getFontMetrics().stringWidth(str);
-    int descent = gfx.getFontMetrics().getDescent();
+//    gc.setFont(new Font(gc.getFont().getName(), 3.0));
+    Bounds bounds = computeBounds(str, gc.getFont());
+//    setFillColor("#00FF00");
+//    fillRect(x - bounds.getWidth() / 2.0d + 0.5, y - bounds.getHeight() / 2 + 0.5, bounds.getWidth(), bounds.getHeight());
+//    setFillColor("#000000");
     drawString(
       str,
-      x - strW / 2.0d,
-      y + (bounds.getHeight() - descent) / 2.0d - 1
+      x - bounds.getWidth() / 2.0d - 1,
+      y + bounds.getHeight() / 2.0d
     );
   }
 
-  public void drawDot(double x, double y) {
-    gfx.drawLine(asInt(x), asInt(y), asInt(x), asInt(y));
+  public Bounds computeBounds(String s, Font f) {
+    Text text = new Text(s);
+    text.setFont(f);
+    Bounds tb = text.getBoundsInLocal();
+    Rectangle stencil = new Rectangle(
+      tb.getMinX(), tb.getMinY(), tb.getWidth(), tb.getHeight()
+    );
+    Shape intersection = Shape.intersect(text, stencil);
+    Bounds ib = intersection.getBoundsInLocal();
+    return ib;
   }
 
-  public void setColor(String colorCode) {
-    gfx.setColor(Color.decode(colorCode));
+  public void setStrokeColor(Color c) {
+    gc.setStroke(c);
+  }
+
+  public void setStrokeColor(String color) {
+    gc.setStroke(Color.valueOf(color));
+  }
+
+  public void setFillColor(Color c) {
+    gc.setFill(c);
+  }
+
+  public void setFillColor(String color) {
+    gc.setFill(Color.valueOf(color));
   }
 
   public void drawRect(double x, double y, double w, double h) {
-    gfx.drawRect(asInt(x), asInt(y), asInt(w), asInt(h));
+    gc.strokeRect(x + 0.5, y + 0.5, w - 1.0, h - 1.0);
   }
 
   public void fillRect(double x, double y, double w, double h) {
-    gfx.fillRect(asInt(x), asInt(y), asInt(w), asInt(h));
-  }
-
-  private int asInt(double d) {
-    return (int) Math.round(d);
+    gc.fillRect(x, y, w, h);
   }
 
 }

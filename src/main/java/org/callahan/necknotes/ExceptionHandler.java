@@ -1,7 +1,7 @@
 package org.callahan.necknotes;
 
 import javafx.scene.control.Alert;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.Label;
 
 public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
 
@@ -13,9 +13,11 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
     al.setTitle("Unexpected error");
     al.setHeaderText("Oops!");
     al.setContentText("Looks like you found a bug");
-    TextArea content = new TextArea("You may want to restart this app, or continue at your own risks :)");
+    Label content = new Label(
+      "Looks like you found a bug...\n" +
+      "You may want to restart this app, or continue at your own risks :)"
+    );
     content.setWrapText(true);
-    content.setEditable(false);
     al.getDialogPane().setContent(content);
     al.showAndWait();
   }

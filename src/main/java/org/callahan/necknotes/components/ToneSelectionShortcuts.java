@@ -4,7 +4,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.callahan.necknotes.components.notes.NotesSelectionController;
-import org.callahan.necknotes.components.utils.Controllers;
+import org.callahan.necknotes.controllers.Controllers;
 import org.callahan.necknotes.core.Tone;
 
 import java.util.Optional;
@@ -18,7 +18,6 @@ public class ToneSelectionShortcuts {
   }
 
   private static Optional<Tone> toneForKeyEvent(KeyEvent evt) {
-    System.out.println("KeyEvent = " + evt);
     int toneOrder;
     if (evt.getCode() == KeyCode.C) {
       toneOrder = 0;

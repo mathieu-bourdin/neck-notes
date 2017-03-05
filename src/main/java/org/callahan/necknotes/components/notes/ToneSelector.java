@@ -1,56 +1,64 @@
 package org.callahan.necknotes.components.notes;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.control.ToggleButton;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.TilePane;
-import org.callahan.necknotes.components.ToggleToneEvent;
-import org.callahan.necknotes.components.utils.Controllers;
+import javafx.scene.text.Text;
 import org.callahan.necknotes.core.NeckNotesFacade;
-import org.callahan.necknotes.core.Tone;
+
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ToneSelector extends HBox {
 
+  private static final double SPACE = 4;
+
+  private boolean dragState = false;
+
   public ToneSelector() {
-    NeckNotesFacade.getTonesOrder().forEach(this::addToneButton);
+    setSpacing(SPACE);
+    setPadding(new Insets(SPACE));
+    getChildren().addAll(
+      NeckNotesFacade.getTonesOrder().stream()
+      .map(ToneButton::new)
+      .collect(Collectors.toList())
+    );
+    addEventFilter(MouseEvent.ANY, this::mouseFilter);
   }
 
-  private void addToneButton(Tone tone) {
-    getChildren().add(createToneButton(tone));
-  }
-  private ToggleButton createToneButton(Tone tone) {
-    ToggleButton button = new ToggleButton(tone.getLabel());
-    button.setOnAction(buttonPressed(button, tone));
-    setupListener(button, tone);
-
-    HBox.setHgrow(button, Priority.ALWAYS);
-    button.setMaxWidth(Double.MAX_VALUE);
-    button.setPrefWidth(24.0);
-    button.setMinWidth(24.0);
-    //setAlignment(Pos.BOTTOM_CENTER);//PrefWidth(Double.MAX_VALUE);
-    //setScaleShape(true);
-    button.setFocusTraversable(false);
-    return button;
+  void setDragState(boolean b) {
+    dragState = b;
   }
 
-  private void setupListener(ToggleButton button, Tone tone) {
-    Controllers.get(NotesSelectionController.class)
-      .<ToggleToneEvent>addListener(e -> {
-        if (e.getTone() == tone) {
-          System.out.printf("Handling controller toggled tone: %s\n", tone);
-          button.setSelected(NeckNotesFacade.isSelected(tone));
+  boolean getDragState() {
+    return dragState;
+  }
+
+  private void mouseFilter(MouseEvent evt) {
+    getButtonUnderMouse(evt).ifPresent(bt -> {
+      if (evt.getEventType() == MouseEvent.MOUSE_PRESSED) {
+        dragState = !bt.isSelected();
+        bt.fire();
+      } else if (evt.getEventType() == MouseEvent.MOUSE_DRAGGED) {
+        if (bt.isSelected() != getDragState()) {
+          bt.fire();
         }
-      });
+      }
+    });
+    evt.consume();
   }
 
-  private EventHandler<ActionEvent> buttonPressed(ToggleButton tb, Tone t) {
-    return evt -> {
-      Controllers.get(NotesSelectionController.class).toggleTone(t);
-      System.out.printf("Button pressed %s for tone %s\n", tb, t);
-    };
+  Optional<ToneButton> getButtonUnderMouse(MouseEvent evt) {
+    Node n = evt.getPickResult().getIntersectedNode();
+    if (n instanceof Text) {
+      return Optional.of((ToneButton) n.getParent());
+    } else if (n instanceof ToneButton) {
+      return Optional.of((ToneButton) n);
+    } else {
+      return Optional.empty();
+    }
   }
+
 
 }

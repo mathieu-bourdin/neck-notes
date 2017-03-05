@@ -1,9 +1,6 @@
 package org.callahan.necknotes.core;
 
-import org.callahan.necknotes.core.necks.FiveStringsBanjo;
-import org.callahan.necknotes.core.necks.GuitarStandard;
-import org.callahan.necknotes.core.necks.TestInstrument;
-import org.callahan.necknotes.core.necks.Ukulele;
+import org.callahan.necknotes.core.necks.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,4 +34,16 @@ public class NeckNotesFacade {
   public static Set<Tone> getSelectedTones() {
     return selection.getSelectedTones();
   }
+
+  public static List<NeckSpecifications> factoryPresets() {
+    return Arrays.asList(
+      new GuitarStandard(),
+      new BassStandard(),
+      new BassFiveStrings(),
+      new UkuleleSoprano(),
+      new FiveStringsBanjo(),
+      new TestInstrument()
+    );
+  }
+
 }

@@ -1,5 +1,6 @@
 package org.callahan.necknotes.components.neck;
 
+import org.callahan.necknotes.components.FretBoardColors;
 import org.callahan.necknotes.core.FretDecoration;
 import org.callahan.necknotes.core.InstrumentString;
 
@@ -14,21 +15,20 @@ class NeckDrawer extends NeckPartDrawer {
   @Override
   public void draw() {
 
-    setColor(FretBoardColors.NECK);
     drawBackground();
 
-    setColor(FretBoardColors.DOTS);
     drawDecorations();
 
-    setColor(FretBoardColors.STRING);
     drawStrings();
   }
 
   private void drawBackground() {
+    setFillColor(FretBoardColors.DEFAULT.getNeck());
     fillRect(0, 0, context.width, context.height);
   }
 
   private void drawDecorations() {
+    setFillColor(FretBoardColors.DEFAULT.getDots());
     context.neckSpec.getFretDecorations().forEach(this::drawDots);
   }
 
@@ -40,7 +40,7 @@ class NeckDrawer extends NeckPartDrawer {
 
     int idx = str.getIndex();
 
-    setColor(FretBoardColors.FRET);
+    setFillColor(FretBoardColors.DEFAULT.getFret());
     double y = context.cellH * idx;
     double fretWidth = Math.max(1.0, context.cellW * FRET_WIDTH_CELL_RATIO);
     double fretHeight = context.cellH + 1;
@@ -61,7 +61,7 @@ class NeckDrawer extends NeckPartDrawer {
     }
     // Last fret:
 
-    setColor(FretBoardColors.STRING);
+    setFillColor(FretBoardColors.DEFAULT.getString());
     double stringWidth = context.gaugeToPixels(str.getGauge());
     y = context.cellH * (idx + 0.5) - stringWidth * 0.5;
     double startX = (str.getFirstFret() - 1) * context.cellW;

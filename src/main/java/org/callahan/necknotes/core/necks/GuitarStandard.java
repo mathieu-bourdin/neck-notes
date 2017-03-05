@@ -1,7 +1,6 @@
 package org.callahan.necknotes.core.necks;
 
 import org.callahan.necknotes.core.EvenNeck;
-import org.callahan.necknotes.core.InstrumentString;
 import org.callahan.necknotes.core.Note;
 import org.callahan.necknotes.core.Tone;
 

@@ -1,6 +1,5 @@
 package org.callahan.necknotes.components.neck;
 
-import org.callahan.necknotes.NeckNotesMain;
 import org.callahan.necknotes.core.InstrumentString;
 import org.callahan.necknotes.core.NeckNotesFacade;
 import org.callahan.necknotes.core.Note;
@@ -31,10 +30,12 @@ public class NotesDrawer extends NeckPartDrawer {
   private void drawTone(Note note, InstrumentString string) {
     double x = context.fretCenterX(note.substract(string.getRootNote()));
     double y = context.fretCenterY(string.getIndex());
-    setColor("#ffffff");
+    setFillColor("#ffffff");
     fillCircle(x, y, context.cellMinEdge * 0.4);
-    setColor("#000000");
+    setStrokeColor("#000000");
     drawCircle(x, y, context.cellMinEdge * 0.4);
+    setFillColor("#000000");
     drawStringCentered(note.getTone().getLabel(), x, y);
   }
+
 }

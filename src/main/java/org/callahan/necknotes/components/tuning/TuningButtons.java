@@ -1,47 +1,43 @@
 package org.callahan.necknotes.components.tuning;
 
-import org.callahan.necknotes.components.neck.FretBoardContext;
-import org.callahan.necknotes.components.neck.NeckPartComponent;
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import org.callahan.necknotes.components.neck.NeckSpecificationsController;
+import org.callahan.necknotes.components.neck.NeckSpecsChangedEvent;
+import org.callahan.necknotes.controllers.Controllers;
 import org.callahan.necknotes.core.InstrumentString;
+import org.callahan.necknotes.core.NeckNotesFacade;
+import org.callahan.necknotes.core.NeckSpecifications;
 import org.callahan.necknotes.core.Note;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.List;
 
+public class TuningButtons extends VBox {
 
-/**
- * A panel with tuning buttons (fits next to NeckView).
- */
-public class TuningButtons extends NeckPartComponent {
-
-  @Override
-  public void neckPropertiesChanged(FretBoardContext ctx) {
-    setupStrings(ctx.neckSpec.getStrings());
+  public TuningButtons() {
+    setup(NeckNotesFacade.getNeckSpecifications());
+    Controllers.get(NeckSpecificationsController.class)
+      .<NeckSpecsChangedEvent>addListener(e -> setup(e.getSpecifications()));
   }
 
-  private void setupStrings(List<InstrumentString> strings) {
-
-    removeAll();
-    setLayout(createLayout(strings));
-
-    strings.stream()
+  private void setup(NeckSpecifications specs) {
+    getChildren().clear();
+    specs.getStrings().stream()
       .map(InstrumentString::getRootNote)
-      .forEach(this::addButton);
+      .forEach(this::addTuningButton);
   }
 
-  private GridLayout createLayout(List<InstrumentString> strings) {
-    GridLayout res = new GridLayout(strings.size(), 1);
-    res.setVgap(4);
-    return res;
-  }
+  private void addTuningButton(Note note) {
+    Button button = new Button(note.getTone().getLabel());
+    VBox.setVgrow(button, Priority.ALWAYS);
+    button.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+    button.setMinHeight(0);
+    button.setMinWidth(24);
+    button.setPadding(new Insets(0, 4, 0, 4));
+    button.setFocusTraversable(false);
 
-  private void addButton(Note note) {
-    JButton b = new JButton(note.getTone().getLabel());
-    b.setMargin(new Insets(0, 0, 0, 0));
-    b.setFocusPainted(false);
-    add(b);
+    getChildren().add(button);
   }
-
 
 }

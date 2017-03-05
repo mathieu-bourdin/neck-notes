@@ -2,47 +2,40 @@ package org.callahan.necknotes.components.neck;
 
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.stage.Screen;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
+import org.callahan.necknotes.components.menu.MainMenu;
+import org.callahan.necknotes.components.tuning.TuningButtons;
 
 
 public class Neck extends GridPane {
 
   public Neck() {
 
-    Node fretsNumber = createFretsNumbers();
+    Button menu = new MainMenu();
+    add(menu, 0, 0);
+
+    Node fretsNumber = new FretsNumbering();
     add(fretsNumber, 1, 0);
     setHgrow(fretsNumber, Priority.ALWAYS);
     setFillWidth(fretsNumber, true);
 
-    Button tuning = createTuningButtons();
+    Node tuning = new TuningButtons();
     add(tuning, 0, 1);
     setVgrow(tuning, Priority.ALWAYS);
     setFillHeight(tuning, true);
 
-    Node fretBoard = createFretBoard();
-    add(fretBoard, 1, 1);
+    //FretBoardCanvas fbc = new FretBoardCanvas();
+    //FrettedNotes f = new FrettedNotes();
+    StackPane sp = new StackPane();
+    sp.getChildren().addAll(new FretBoardCanvas(), new FrettedNotes());
+    add(sp, 1, 1);
 
-  }
-
-  private Button createTuningButtons() {
-    Button r = new Button("I");
-    r.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-    return r;
-  }
-
-  private Node createFretsNumbers() {
-    Button r = new Button("1 2 3 4 5 6 7 8 9 10 11 12");
-    r.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-    return r;
-  }
-
-  private Node createFretBoard() {
-    Button r = new Button("FRETBOARD");
-    r.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-    return r;
+    //add(new FrettedNoteButton("F#"), 2, 2);
+    //Button b = new Button("F#");
+    //b.setShape(new Circle(12.0));
+    //add(b, 2, 2);
   }
 
 }

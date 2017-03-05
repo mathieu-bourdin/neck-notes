@@ -2,22 +2,22 @@ package org.callahan.necknotes.components;
 
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import org.callahan.necknotes.components.neck.Neck;
 import org.callahan.necknotes.components.notes.ToneSelector;
 
 public class GuiBuilder {
 
   public Parent build() {
-    BorderPane pane = new BorderPane();
-    pane.setCenter(neckDisplay());
-    pane.setBottom(tonesSelector());
-    pane.addEventHandler(
-      KeyEvent.KEY_PRESSED,
-      ToneSelectionShortcuts.createHandler()
-    );
+    VBox pane = new VBox();
+
+
+    Node neck = neckDisplay();
+    Node tones = tonesSelector();
+    pane.getChildren().addAll(neck, tones);
+    VBox.setVgrow(neck, Priority.ALWAYS);
+    VBox.setVgrow(tones, Priority.NEVER);
     return pane;
   }
 
@@ -26,6 +26,6 @@ public class GuiBuilder {
   }
 
   private Node neckDisplay() {
-    return new Neck();//Button("Here goes the neck");
+    return new Neck();
   }
 }

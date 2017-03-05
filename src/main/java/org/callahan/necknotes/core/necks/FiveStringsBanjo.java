@@ -18,6 +18,11 @@ public class FiveStringsBanjo implements NeckSpecifications {
   public FiveStringsBanjo() {
     strings = createStrings();
     dots = createDots();
+    getStrings().get(0).setGauge(10);
+    getStrings().get(1).setGauge(11);
+    getStrings().get(2).setGauge(12);
+    getStrings().get(3).setGauge(20);
+    getStrings().get(4).setGauge(10);
   }
 
   @Override

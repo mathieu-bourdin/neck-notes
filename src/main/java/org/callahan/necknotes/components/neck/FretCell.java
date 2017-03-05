@@ -9,8 +9,6 @@ class FretCell {
   boolean selected;
   final int row;
   final int column;
-  double x;
-  double y;
 
   FretCell(Note n, int r, int c) {
     note = n;
@@ -22,4 +20,7 @@ class FretCell {
     return note.getTone() == t;
   }
 
+  public Tone getTone() {
+    return note.getTone();
+  }
 }

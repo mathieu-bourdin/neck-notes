@@ -1,15 +1,13 @@
-package org.callahan.necknotes.components;
+package org.callahan.necknotes.components.notes;
 
-import javafx.event.Event;
-import javafx.event.EventType;
+import org.callahan.necknotes.components.utils.CustomEvent;
 import org.callahan.necknotes.core.Tone;
 
-public class ToggleToneEvent extends Event {
+public class ToggleToneEvent extends CustomEvent {
 
   private final Tone tone;
 
   public ToggleToneEvent(Tone t) {
-    super(EventType.ROOT);
     tone = t;
   }
 

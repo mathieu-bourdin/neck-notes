@@ -1,46 +1,44 @@
 package org.callahan.necknotes.components.neck;
 
-import org.callahan.necknotes.components.utils.GfxDrawer;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import org.callahan.necknotes.components.FretBoardColors;
+import org.callahan.necknotes.controllers.Controllers;
 
-import java.awt.*;
 
-class FretsNumbering extends NeckPartComponent {
+class FretsNumbering extends HBox {
 
   private FretBoardContext context;
 
   public FretsNumbering() {
-    setMinimumSize(new Dimension(100, 20));
-    setMaximumSize(new Dimension(100, 20));
-    setPreferredSize(new Dimension(100, 20));
+    Controllers.get(NeckSpecificationsController.class)
+      .<NeckSpecsChangedEvent>addListener(e -> setup(e.getUpdatedContext()));
   }
 
-  @Override
-  protected void paintComponent(Graphics g) {
-    new Drawer(g, context).draw();
-  }
-
-  @Override
-  public void neckPropertiesChanged(FretBoardContext ctx) {
+  private void setup(FretBoardContext ctx) {
     context = ctx;
+    update();
   }
 
-  private static class Drawer extends GfxDrawer {
+  private void update() {
+    getChildren().clear();
+    for (int i = 1; i <= context.columns; ++i) {
 
-    private final FretBoardContext context;
-
-    public Drawer(Graphics g, FretBoardContext ctx) {
-      super(g);
-      context = ctx;
+      Label l = new Label("" + i);
+      l.setBorder(Border.EMPTY);
+      l.setPadding(Insets.EMPTY);
+      HBox.setHgrow(l, Priority.ALWAYS);
+      l.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+      l.setPrefWidth(32);
+      l.setFocusTraversable(false);
+      l.setAlignment(Pos.CENTER);
+      l.setTextFill(FretBoardColors.DEFAULT.getFrettedNoteForeground());
+      getChildren().add(l);
     }
-    @Override
-    public void draw() {
-      setColor(FretBoardColors.FRET);
-      double y = 12;
-      for (int i = 1; i <= context.columns; ++i) {
-        double x = context.fretCenterX(i);
-        drawStringCentered(String.valueOf(i), x, y);
-      }
-    }
-
   }
+
 }

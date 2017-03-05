@@ -1,14 +1,12 @@
 package org.callahan.necknotes.components.notes;
 
-import org.callahan.necknotes.components.ToggleToneEvent;
-import org.callahan.necknotes.components.utils.Controller;
+import org.callahan.necknotes.controllers.Controller;
 import org.callahan.necknotes.core.NeckNotesFacade;
 import org.callahan.necknotes.core.Tone;
 
-public class NotesSelectionController extends Controller {
+public class NotesSelectionController extends Controller<ToggleToneEvent> {
 
   public void toggleTone(Tone tone) {
-    System.out.printf("Controller toggles tone: %s\n", tone);
     boolean wasSelected = NeckNotesFacade.isSelected(tone);
     if (wasSelected) {
       NeckNotesFacade.deselectTone(tone);

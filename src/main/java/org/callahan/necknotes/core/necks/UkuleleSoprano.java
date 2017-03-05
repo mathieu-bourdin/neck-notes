@@ -4,7 +4,7 @@ import org.callahan.necknotes.core.EvenNeck;
 import org.callahan.necknotes.core.Note;
 import org.callahan.necknotes.core.Tone;
 
-public class Ukulele extends EvenNeck {
+public class UkuleleSoprano extends EvenNeck {
 
   private static final Note[] ZERO_FRET_NOTES = {
     new Note(Tone.A, 4),
@@ -13,13 +13,17 @@ public class Ukulele extends EvenNeck {
     new Note(Tone.G, 4),
   };
 
-  public Ukulele() {
+  public UkuleleSoprano() {
     super(ZERO_FRET_NOTES);
     setFretsCount(15);
+    getStrings().get(0).setGauge(19);
+    getStrings().get(1).setGauge(27);
+    getStrings().get(2).setGauge(31);
+    getStrings().get(3).setGauge(22);
   }
 
   @Override
   public String getName() {
-    return "Ukulele";
+    return "Ukulele (soprano)";
   }
 }
