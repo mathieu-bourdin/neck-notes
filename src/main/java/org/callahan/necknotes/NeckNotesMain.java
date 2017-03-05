@@ -46,9 +46,9 @@ public class NeckNotesMain extends Application {
   }
 
   private void setupStartingSelection() {
-    Stream.of(Tone.C, Tone.E, Tone.G).forEach(
-      Controllers.get(NotesSelectionController.class)::toggleTone
-    );
+//    Stream.of(Tone.C, Tone.E, Tone.G).forEach(
+//      Controllers.get(NotesSelectionController.class)::toggleTone
+//    );
   }
 
   private void selectStartingNeckLayout() {

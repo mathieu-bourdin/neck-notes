@@ -19,6 +19,8 @@ class NeckDrawer extends NeckPartDrawer {
 
     drawDecorations();
 
+    drawFrets();
+
     drawStrings();
   }
 
@@ -36,38 +38,26 @@ class NeckDrawer extends NeckPartDrawer {
     context.neckSpec.getStrings().forEach(this::drawString);
   }
 
-  private void drawString(InstrumentString str) {
-
-    int idx = str.getIndex();
-
+  private void drawFrets() {
+    //double fretWidth = Math.max(1.0, context.cellW * FRET_WIDTH_CELL_RATIO);
     setFillColor(FretBoardColors.DEFAULT.getFret());
-    double y = context.cellH * idx;
-    double fretWidth = Math.max(1.0, context.cellW * FRET_WIDTH_CELL_RATIO);
-    double fretHeight = context.cellH + 1;
     // First fret:
-    if (str.getFirstFret() == 1) {
-      fillRect(0, y, fretWidth, fretHeight);
-    } else {
-      fillRect(context.cellW * (str.getFirstFret() - 1) - fretWidth * 0.5, y, fretWidth, fretHeight);
-    }
-    for (int i = str.getFirstFret(); i < str.getLastFret(); ++i) {
-      double x = context.cellW * i - fretWidth * 0.5;
-      fillRect(x, y, fretWidth, fretHeight);
-    }
-    if (str.getLastFret() == context.columns) {
-      fillRect(context.width - fretWidth + 1, 0, fretWidth, context.height);
-    } else {
-      fillRect(context.cellW * str.getLastFret() - fretWidth * 0.5, 0, fretWidth, context.height);
+    fillRect(0, 0, context.fretWidth, context.height);
+    // Intermediate frets:
+    for (int i = 1; i < context.columns; ++i) {
+      double x = context.cellW * i - context.fretWidth * 0.5;
+      fillRect(x, 0, context.fretWidth, context.height);
     }
     // Last fret:
+    fillRect(context.width - context.fretWidth, 0, context.fretWidth, context.height);
+  }
 
+  private void drawString(InstrumentString str) {
     setFillColor(FretBoardColors.DEFAULT.getString());
     double stringWidth = context.gaugeToPixels(str.getGauge());
-    y = context.cellH * (idx + 0.5) - stringWidth * 0.5;
-    double startX = (str.getFirstFret() - 1) * context.cellW;
-    fillRect(startX, y, context.width, stringWidth);
-
-
+    double y = context.cellH * (str.getIndex() + 0.5) - stringWidth * 0.5;
+    double startX = (str.getFirstFret() - 1) * context.cellW - context.fretWidth / 2;
+    fillRect(startX, y, context.width + context.fretWidth, stringWidth);
   }
 
   private void drawDots(FretDecoration deco) {

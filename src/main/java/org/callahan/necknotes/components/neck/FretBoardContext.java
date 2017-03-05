@@ -10,9 +10,11 @@ import java.util.stream.Stream;
 
 import static java.lang.Math.min;
 import static java.util.stream.Collectors.toList;
+import static org.callahan.necknotes.components.neck.FretBoardMetrics.FRET_WIDTH_CELL_RATIO;
 
 public class FretBoardContext {
 
+  double fretWidth;
   double cellW;
   double cellH;
   double cellMinEdge;
@@ -58,23 +60,12 @@ public class FretBoardContext {
   }
 
   void updateSize(double w, double h) {
-//    if (sizeChanged(w, h)) {
-      width = w;
-      height = h;
-      cellW = width / ((double) columns);
-      cellH = height / ((double) rows);
-      cellMinEdge = min(cellH, cellW);
-//    }
-  }
-
-  private boolean sizeChanged(double w, double h) {
-    if (Doubles.equal(w, width) && Doubles.equal(h, height)) {
-      return true;
-    } else {
-      width = w;
-      height = h;
-      return false;
-    }
+    width = w;
+    height = h;
+    cellW = width / ((double) columns);
+    cellH = height / ((double) rows);
+    cellMinEdge = min(cellH, cellW);
+    fretWidth = Math.max(1.0, cellW * FRET_WIDTH_CELL_RATIO);
   }
 
   double fretCenterX(int fretIndex) {

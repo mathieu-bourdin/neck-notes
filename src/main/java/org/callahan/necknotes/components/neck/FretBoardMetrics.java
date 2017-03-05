@@ -5,7 +5,7 @@ class FretBoardMetrics {
   /**
    * Fret width defined as a fraction of cell width.
    */
-  static final double FRET_WIDTH_CELL_RATIO = 0.05;
+  static final double FRET_WIDTH_CELL_RATIO = 0.08;
 
   /**
    * Width of instrument largest string defined as a fraction of cell height.

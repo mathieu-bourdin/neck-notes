@@ -51,13 +51,10 @@ public class ToneSelector extends HBox {
 
   Optional<ToneButton> getButtonUnderMouse(MouseEvent evt) {
     Node n = evt.getPickResult().getIntersectedNode();
-    if (n instanceof Text) {
-      return Optional.of((ToneButton) n.getParent());
-    } else if (n instanceof ToneButton) {
-      return Optional.of((ToneButton) n);
-    } else {
-      return Optional.empty();
+    while (n != null && ! (n instanceof ToneButton)) {
+      n = n.getParent();
     }
+    return Optional.ofNullable((ToneButton)n);
   }
 
 

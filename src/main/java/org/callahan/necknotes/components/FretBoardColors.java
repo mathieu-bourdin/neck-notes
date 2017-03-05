@@ -6,9 +6,9 @@ public class FretBoardColors {
 
   public static final FretBoardColors DEFAULT = new FretBoardColors();
 
-  private Color neck = Color.valueOf("#0053a6");
-  private Color dots = Color.valueOf("#4b9ef4");
-  private Color fret = Color.valueOf("#ffffff");
+  private Color neck = Color.valueOf("#0e4176");
+  private Color dots = Color.valueOf("#185696");
+  private Color fret = Color.valueOf("#9bcbfd");
   private Color string = Color.valueOf("#0080ff");
 
   private Color frettedNoteBackground = Color.valueOf("#ffffff");
