@@ -15,5 +15,5 @@ class FretBoardMetrics {
   /**
    * Radius of decorative dot relative to cell smallest edge.
    */
-  static final double DECO_DOT_CELL_RATIO = 0.3;
+  static final double DECO_DOT_CELL_RATIO = 0.2;
 }

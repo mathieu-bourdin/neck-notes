@@ -8,12 +8,8 @@ import javafx.stage.Stage;
 import org.callahan.necknotes.components.GuiBuilder;
 import org.callahan.necknotes.components.ToneSelectionShortcuts;
 import org.callahan.necknotes.components.neck.NeckSpecificationsController;
-import org.callahan.necknotes.components.notes.NotesSelectionController;
 import org.callahan.necknotes.controllers.Controllers;
 import org.callahan.necknotes.core.NeckNotesFacade;
-import org.callahan.necknotes.core.Tone;
-
-import java.util.stream.Stream;
 
 public class NeckNotesMain extends Application {
 

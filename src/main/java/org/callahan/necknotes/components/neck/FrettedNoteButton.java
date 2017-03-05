@@ -1,6 +1,7 @@
 package org.callahan.necknotes.components.neck;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
@@ -20,6 +21,7 @@ public class FrettedNoteButton extends Button {
   public FrettedNoteButton(FretCell fc) {
     super(fc.note.toneLabel());
     cell = fc;
+    setAlignment(Pos.CENTER);
     setPadding(Insets.EMPTY);
     setMinSize(MIN_WIDTH, MIN_WIDTH);
     setFocusTraversable(false);
