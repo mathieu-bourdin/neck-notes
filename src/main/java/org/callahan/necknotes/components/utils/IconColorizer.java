@@ -27,7 +27,7 @@ public class IconColorizer {
   }
 
   public static Image colorize(String resource, Color color) {
-    return colorize(new Image("/img/cog.png"), color);
+    return colorize(new Image(resource), color);
   }
 
 

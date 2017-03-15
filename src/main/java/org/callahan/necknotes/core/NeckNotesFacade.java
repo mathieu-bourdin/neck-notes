@@ -41,7 +41,7 @@ public class NeckNotesFacade {
       new BassStandard(),
       new BassFiveStrings(),
       new UkuleleSoprano(),
-      new FiveStringsBanjo()
+      new BanjoFiveStrings()
     );
   }
 

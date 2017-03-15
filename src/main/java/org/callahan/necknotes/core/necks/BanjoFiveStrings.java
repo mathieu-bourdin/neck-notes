@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FiveStringsBanjo implements NeckSpecifications {
+public class BanjoFiveStrings implements NeckSpecifications {
 
   private static final List<Integer> dottedFrets =
     Arrays.asList(3, 5, 7, 10, 12, 15, 17);
@@ -15,7 +15,7 @@ public class FiveStringsBanjo implements NeckSpecifications {
   private List<InstrumentString> strings;
   private List<FretDecoration> dots;
 
-  public FiveStringsBanjo() {
+  public BanjoFiveStrings() {
     strings = createStrings();
     dots = createDots();
     getStrings().get(0).setGauge(10);

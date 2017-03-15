@@ -26,16 +26,10 @@ public class Neck extends GridPane {
     setVgrow(tuning, Priority.ALWAYS);
     setFillHeight(tuning, true);
 
-    //FretBoardCanvas fbc = new FretBoardCanvas();
-    //FrettedNotes f = new FrettedNotes();
     StackPane sp = new StackPane();
     sp.getChildren().addAll(new FretBoardCanvas(), new FrettedNotes());
     add(sp, 1, 1);
 
-    //add(new FrettedNoteButton("F#"), 2, 2);
-    //Button b = new Button("F#");
-    //b.setShape(new Circle(12.0));
-    //add(b, 2, 2);
   }
 
 }

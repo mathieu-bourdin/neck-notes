@@ -44,11 +44,7 @@ public abstract class GfxDrawer {
   }
 
   public void drawStringCentered(String str, double x, double y) {
-//    gc.setFont(new Font(gc.getFont().getName(), 3.0));
     Bounds bounds = computeBounds(str, gc.getFont());
-//    setFillColor("#00FF00");
-//    fillRect(x - bounds.getWidth() / 2.0d + 0.5, y - bounds.getHeight() / 2 + 0.5, bounds.getWidth(), bounds.getHeight());
-//    setFillColor("#000000");
     drawString(
       str,
       x - bounds.getWidth() / 2.0d - 1,

@@ -11,8 +11,6 @@ public class GuiBuilder {
 
   public Parent build() {
     VBox pane = new VBox();
-
-
     Node neck = neckDisplay();
     Node tones = tonesSelector();
     pane.getChildren().addAll(neck, tones);

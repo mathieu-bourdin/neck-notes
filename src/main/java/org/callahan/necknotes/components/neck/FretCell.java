@@ -6,7 +6,6 @@ import org.callahan.necknotes.core.Tone;
 class FretCell {
 
   final Note note;
-  boolean selected;
   final int row;
   final int column;
 

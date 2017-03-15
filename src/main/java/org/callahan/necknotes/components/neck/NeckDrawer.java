@@ -1,15 +1,14 @@
 package org.callahan.necknotes.components.neck;
 
+import javafx.scene.canvas.GraphicsContext;
 import org.callahan.necknotes.components.FretBoardColors;
 import org.callahan.necknotes.core.FretDecoration;
 import org.callahan.necknotes.core.InstrumentString;
 
-import static org.callahan.necknotes.components.neck.FretBoardMetrics.FRET_WIDTH_CELL_RATIO;
-
 class NeckDrawer extends NeckPartDrawer {
 
-  NeckDrawer(NeckPartDrawer np) {
-    super(np);
+  NeckDrawer(FretBoardContext ctx, GraphicsContext gc) {
+    super(ctx, gc);
   }
 
   @Override
@@ -39,7 +38,6 @@ class NeckDrawer extends NeckPartDrawer {
   }
 
   private void drawFrets() {
-    //double fretWidth = Math.max(1.0, context.cellW * FRET_WIDTH_CELL_RATIO);
     setFillColor(FretBoardColors.DEFAULT.getFret());
     // First fret:
     fillRect(0, 0, context.fretWidth, context.height);

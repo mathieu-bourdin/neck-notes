@@ -40,14 +40,4 @@ public abstract class ResizableCanvas extends Pane {
     }
   }
 
-//  private void draw(GraphicsContext gc, double width, double height) {
-//    System.out.println("Redrawing...");
-//    gc.clearRect(0, 0, width, height);
-//    gc.setStroke(Color.RED);
-//    gc.strokeRect(0.5, 0.5, width - 1, height - 1);
-//    gc.setStroke(Color.BLACK);
-//    gc.strokeLine(0.5, 0.5, width - 0.5, height - 0.5);
-//    gc.strokeLine(0.5, height - 0.5, width - 0.5, 0.5);
-//  }
-
 }

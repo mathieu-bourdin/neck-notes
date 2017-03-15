@@ -4,7 +4,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 import org.callahan.necknotes.core.NeckNotesFacade;
 
 import java.util.Optional;
@@ -21,14 +20,10 @@ public class ToneSelector extends HBox {
     setPadding(new Insets(SPACE));
     getChildren().addAll(
       NeckNotesFacade.getTonesOrder().stream()
-      .map(ToneButton::new)
-      .collect(Collectors.toList())
+        .map(ToneButton::new)
+        .collect(Collectors.toList())
     );
     addEventFilter(MouseEvent.ANY, this::mouseFilter);
-  }
-
-  void setDragState(boolean b) {
-    dragState = b;
   }
 
   boolean getDragState() {
@@ -51,10 +46,10 @@ public class ToneSelector extends HBox {
 
   Optional<ToneButton> getButtonUnderMouse(MouseEvent evt) {
     Node n = evt.getPickResult().getIntersectedNode();
-    while (n != null && ! (n instanceof ToneButton)) {
+    while (n != null && !(n instanceof ToneButton)) {
       n = n.getParent();
     }
-    return Optional.ofNullable((ToneButton)n);
+    return Optional.ofNullable((ToneButton) n);
   }
 
 

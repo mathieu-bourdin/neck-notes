@@ -1,6 +1,5 @@
 package org.callahan.necknotes.components.neck;
 
-import org.callahan.necknotes.components.utils.Doubles;
 import org.callahan.necknotes.core.InstrumentString;
 import org.callahan.necknotes.core.NeckSpecifications;
 import org.callahan.necknotes.core.Note;
@@ -55,10 +54,6 @@ public class FretBoardContext {
     return Math.max(1.0, gauge * gaugeRatio * cellH);
   }
 
-  Optional<FretCell> getFretCell(int string, int fret) {
-    return Optional.ofNullable(cells[string * columns + fret]);
-  }
-
   void updateSize(double w, double h) {
     width = w;
     height = h;
@@ -75,7 +70,6 @@ public class FretBoardContext {
   double fretCenterY(int stringIndex) {
     return cellH * (stringIndex + 0.5);
   }
-
 
   private FretCell[] initCells() {
     FretCell[] res = new FretCell[columns * rows];
