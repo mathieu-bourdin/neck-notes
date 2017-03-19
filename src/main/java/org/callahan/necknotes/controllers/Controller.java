@@ -8,7 +8,7 @@ import java.util.Set;
 
 public abstract class Controller<T extends Event> {
 
-  private Set<EventHandler> listeners = new HashSet<>();
+  private Set<EventHandler<T>> listeners = new HashSet<>();
 
   public final void notifyListeners(T e) {
     listeners.forEach(h -> h.handle(e));

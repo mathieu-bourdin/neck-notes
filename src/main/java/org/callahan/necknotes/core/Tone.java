@@ -35,11 +35,12 @@ public enum Tone {
   private int order;
 
   public static Tone fromOrder(int o) {
+    final int order = ((o % 12) + 12) % 12;
     return Arrays.stream(Tone.values())
-      .filter(t -> t.order == o)
+      .filter(t -> t.order == order)
       .findFirst()
       .orElseThrow(() ->
-        new IllegalArgumentException("Invalid tone order: " + o));
+        new IllegalArgumentException("Invalid tone order: " + order));
   }
 
   public int getOrder() {

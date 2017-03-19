@@ -1,0 +1,29 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+//apply plugin: 'application'
+
+group = 'org.callahan'
+version = '0.0.1-SNAPSHOT'
+
+description = """
+Learn notes of any kind of axe.
+"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+
+repositories {
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+dependencies {
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'org.callahan.necknotes.NeckNotesMain'
+    }
+}
+// mainClassName = 'org.callahan.necknotes.NeckNotesMain'
